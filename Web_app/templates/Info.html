@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit-=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Studios</title>
+    <!--This is the Bootstrap CSS-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:wght@300;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="..\static\css.css">
+
+</head>
+
+<body>
+
+<div class="container">
+    <!--Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-light">
+            <a class="navbar-brand" href="base.html">
+                <img src="..\static\splogo.png" alt="logo" height="200px" width="200px">
+            </a>
+        </nav>
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--NORMAL BUTTONS-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto float-right">
+                <li class="nav-item ">
+                    <a class="nav-link text-white" href="/">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/info">Info</a>
+                </li>
+                <!--BUTTON DROPDOWN-->
+                <!--          <li class="nav-item dropdown">-->
+                <!--            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown1" role="button"-->
+                <!--              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gallery-->
+                <!--            </a>-->
+                <!--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                <!--              <a class="dropdown-item" href="year17.html">2017</a>-->
+                <!--              <a class="dropdown-item" href="year18.html">2018</a>-->
+                <!--              <a class="dropdown-item" href="year19.html">2019</a>-->
+                <!--              <a class="dropdown-item" href="year20.html">2020</a>-->
+
+
+                <!--              <div class="dropdown-divider"></div>-->
+                <!--              <a class="dropdown-item" href="seeall.html">See all</a>-->
+                <!--            </div>-->
+                <!--          </li>-->
+                <!--          <li class="nav-item">-->
+                <!--            <a class="nav-link text-white" href="studio.html">Backgrounds</a>-->
+                <!--          </li>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/book">Book</a>
+                        <a class="dropdown-item" href="{{url_for('auth.mybookings',user_id=current_user.id)}}">My
+                            Bookings</a>
+                        <a class="dropdown-item"
+                           href="{{url_for('auth.mystudios',name_surname=current_user.name_surname)}}">My Studios</a>
+                        <a class="dropdown-item" href="/account">Account</a>
+                        <a class="dropdown-item" href="/logout">Log out</a>
+                    </div>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-12 mx-auto">
+                <p></p>
+
+
+                {% if current_user.is_authenticated %}
+
+                <h1>Dear,
+                    {{ current_user.name_surname}}
+
+                </h1>
+
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6  border-dark p-3">
+                <p>
+                <h3 class="display-5 text-white ">
+                    The name of the application is Superior Photo Studios.
+                    You may ask why is it superior, what makes is superior? Firstly, name comes from the surname of the
+                    developer. Secondly, this application is suitable for this name because people/companies who are the
+                    owner of the studios are able to give a superior service to their customers.
+                    For now the application is available only for 3 countries, because it's a new and by the time it
+                    will serve to more countries. If you have any studio and want to make a profitable business, do not
+                    hesitate and share your studio on this application, so you can find clients.
+                    If you want to have a good and beautiful pictures please right now start to look for studio which
+                    suits to your style. We are waiting you!
+
+                </h3>
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title"> Contact Information </h5>
+
+                        <p class="display-5 ">
+                            Application Support
+
+                        </p>
+
+                        <p class="display-5 "><i class="fas fa-envelope"></i> superiorstudio@gmail.com </p>
+                        <p class="display-5 ">
+                            <i class="fas fa-location-arrow"></i> Romania, Bucharest
+
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.6779610398653!2d26.120530791589427!3d44.41925365322991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1fee22cbe41b1%3A0x8aa786af8794fdb8!2sStrada%20Foi%C8%99orului%2011%2C%20Bucure%C8%99ti%20031179!5e0!3m2!1str!2sro!4v1646301471978!5m2!1str!2sro"
+                                    width="400" height="350" style="border:0;" allowfullscreen=""
+                                    loading="lazy"></iframe>
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="col-2"><img src="{{url_for('static', filename='back.jpg')}}" class="img-thumbnail img-fluid"
+                                    align="middle"/>
+                <img src="{{url_for('static', filename='back3.jpg')}}" class="img-thumbnail img-fluid" align="middle"/>
+                <img src="{{url_for('static', filename='back4.jpg')}}" class="img-thumbnail img-fluid" align="middle"/>
+            </div>
+            <div class="col-2"><img src="{{url_for('static', filename='back5.jpg')}}" class="img-thumbnail"
+                                    align="middle"/>
+                <img src="{{url_for('static', filename='back6.jpg')}}" class="img-thumbnail" align="middle"/>
+                <img src="{{url_for('static', filename='back7.jpg')}}" class="img-thumbnail" align="middle"/>
+                <img src="{{url_for('static', filename='back8.jpg')}}" class="img-thumbnail" align="middle"/></div>
+            <div class="col-2"><img src="{{url_for('static', filename='back2.jpg')}}" class="img-thumbnail"
+                                    align="middle"/>
+                <img src="{{url_for('static', filename='back9.jpg')}}" class="img-thumbnail" align="middle"/>
+                <img src="{{url_for('static', filename='back10.jpg')}}" class="img-thumbnail" align="middle"/></div>
+
+
+            {%endif%}
+
+        </div>
+
+
+    </div>
+</div>
+
+<!--This is the Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+
+
+

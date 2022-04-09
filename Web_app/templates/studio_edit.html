@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit-=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Studio</title>
+    <!--This is the Bootstrap CSS-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:wght@300;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="..\static\css.css">
+
+</head>
+
+<body>
+
+<div class="container">
+    <!--Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-light">
+            <a class="navbar-brand" href="base.html">
+                <img src="..\static\splogo.png" alt="logo" height="200px" width="200px">
+            </a>
+        </nav>
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--NORMAL BUTTONS-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto float-right">
+                <li class="nav-item ">
+                    <a class="nav-link text-white" href="/">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/info">Info</a>
+                </li>
+                <!--BUTTON DROPDOWN-->
+                <!--                                <li class="nav-item dropdown">-->
+                <!--                                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown1" role="button"-->
+                <!--                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gallery-->
+                <!--                                    </a>-->
+                <!--                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                <!--                                        <a class="dropdown-item" href="year17.html">2017</a>-->
+                <!--                                        <a class="dropdown-item" href="year18.html">2018</a>-->
+                <!--                                        <a class="dropdown-item" href="year19.html">2019</a>-->
+                <!--                                        <a class="dropdown-item" href="year20.html">2020</a>-->
+
+
+                <!--                                        <div class="dropdown-divider"></div>-->
+                <!--                                        <a class="dropdown-item" href="seeall.html">See all</a>-->
+                <!--                                    </div>-->
+                <!--                                </li>-->
+                <!--                                <li class="nav-item">-->
+                <!--                                    <a class="nav-link text-white" href="studio.html">Backgrounds</a>-->
+                <!--                                </li>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/book">Book</a>
+                        <a class="dropdown-item" href="{{url_for('auth.mybookings',user_id=current_user.id)}}">My
+                            Bookings</a>
+                        <a class="dropdown-item"
+                           href="{{url_for('auth.mystudios',name_surname=current_user.name_surname)}}">My Studios</a>
+                        <a class="dropdown-item" href="/account">Account</a>
+                        <a class="dropdown-item" href="/logout">Log out</a>
+                    </div>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </nav>
+
+    <hr class="my-4"/>
+
+
+    <div class="row mt-5 align-items-center">
+        {%if studios%}
+        {%for studio in studios%}
+        {%if studio.active%}
+        <div class="col">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    {%with messages=get_flashed_messages(with_categories=true)%}
+                    {% if messages %}
+                    {% for category,message in messages %}
+                    {% if category == 'error'%}
+                    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-success alter-dismissable fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+
+                </div>
+            </div>
+            <div class="container">
+                <h4></h4>
+
+                <!--                                addd here radio box-->
+                <!--                                here i should change; display all studios that user has with radio box and make changes only for the chosen studio -->
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-6">
+
+
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Studio Name</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                       placeholder="Studio Name" name="studio_name" value="{{studio.studio_name}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Surface</label>
+                                <select class="form-control" id="exampleFormControlSelect1" name="surface"
+                                        value="{{studio.surface}}">
+                                    <option selected disabled>Select Surface</option>
+                                    <option value="Big" {% if studio.surface=="Big" %} selected="selected" {% endif %}>
+                                        Big
+                                    </option>
+                                    <option value="Medium" {% if studio.surface=="Medium" %} selected="selected" {%
+                                            endif %}>Medium
+                                    </option>
+                                    <option value="Small" {% if studio.surface=="Small" %} selected="selected" {% endif
+                                            %}>Small
+                                    </option>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="description2">Description</label>
+                                <textarea class="form-control" id="description2" rows="3"
+                                          name="description"> {{studio.description}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="formFileMultiple">Add additional pictures</label>
+                                <input class="form-control" name="image" type="file" id="formFileMultiple" multiple>
+                            </div>
+                            <div class="row">
+                                {%if filenames%}
+                                {%for filename in filenames %}
+
+                                <div class="col">
+                                    <img class="img"
+                                         src="{{request.url_root}}static/studios/{{ filename.pictures }}"
+                                         style="width:200px">
+                                </div>
+
+                                {%endfor%}
+                                {%endif%}
+                            </div>
+
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Country</label>
+                                <select class="form-control" id="exampleFormControlSelect2" onchange="filter()"
+                                        name="country">
+                                    <option selected disabled>Select country</option>
+                                    <option value="Moldova" {% if studio.country=="Moldova" %} selected="selected" {%
+                                            endif %}>Moldova
+                                    </option>
+                                    <option value="Romania" {% if studio.country=="Romania" %} selected="selected" {%
+                                            endif %}>Romania
+                                    </option>
+                                    <option value="Turkey" {% if studio.country=="Turkey" %} selected="selected" {%
+                                            endif %}>Turkey
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">City</label>
+                                <select class="form-control" id="selectcity" name="selectcity">
+                                    <option selected disabled>Select city</option>
+                                    <option>Select City</option>
+                                    <option value="Bucharest" {% if studio.city=="Bucharest" %} selected="selected" {%
+                                            endif %}>Bucharest
+                                    </option>
+                                    <option value="Chisinau" {% if studio.city=="Chisinau" %} selected="selected" {%
+                                            endif %}>Chisinau
+                                    </option>
+                                    <option value="Ankara" {% if studio.city=="Ankara" %} selected="selected" {% endif
+                                            %}>Ankara
+                                    </option>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Address</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput3"
+                                       placeholder="Detailed Address" name="street" value="{{studio.street}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Price (per hour)</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput5"
+                                       placeholder="Write only in euro" name="price" value="{{studio.price}}">
+                            </div>
+                            <button type="submit" class="btn btn-outline-light btn-lg" name="save_studio"
+                                    value="save_studio">
+                                Save changes
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        {%endif%}
+        {%endfor%}
+        {%else%}
+        You don't have studio to edit
+        {%endif%}
+    </div>
+
+    <hr class="my-4"/>
+
+
+</div>
+
+
+<!--This is the Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!--<script>-->
+<!--        function filter(){-->
+<!--        var a=document.getElementById("exampleFormControlSelect1").value;-->
+<!--        var b=document.getElementById("selectcity");-->
+<!--        for(var i=b.options.length-1;i>=0;i&#45;&#45;){-->
+<!--                b.remove(i);-->
+<!--             }-->
+<!--             if(a=="Moldova"){-->
+<!--                var option = document.createElement('option');-->
+<!--                option.text = "Chisinau";-->
+<!--                option.value="Chisinau";-->
+<!--                b.add(option);-->
+<!--            }-->
+<!--            if(a=="Romania"){-->
+<!--                var option = document.createElement('option');-->
+<!--                option.text = "Bucharest";-->
+<!--                option.value = "Bucharest";-->
+<!--                b.add(option);-->
+<!--                option = document.createElement('option');-->
+<!--                option.text = "Cluj-Napoca";-->
+<!--                option.value = "Cluj-Napoca";-->
+<!--                b.add(option);-->
+
+<!--            }-->
+<!--            if(a=="Turkey"){-->
+<!--                var option = document.createElement('option');-->
+<!--                option.text = "Ankara";-->
+<!--                option.value = "Ankara";-->
+<!--                b.add(option);-->
+<!--                option = document.createElement('option');-->
+<!--                option.text = "Istanbul";-->
+<!--                option.value = "Istanbul";-->
+<!--                b.add(option);-->
+
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+</body>
+
+</html>

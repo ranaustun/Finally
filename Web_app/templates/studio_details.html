@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit-=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Superior Shooting</title>
+    <!--This is the Bootstrap CSS-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:wght@300;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="..\static\css.css">
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+
+<body>
+
+<div class="container">
+    <!--Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-light">
+            <a class="navbar-brand" href="base.html">
+                <img src="..\static\splogo.png" alt="logo" height="200px" width="200px">
+            </a>
+        </nav>
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--NORMAL BUTTONS-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto float-right">
+                <li class="nav-item ">
+                    <a class="nav-link text-white" href="/">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/info">Info</a>
+                </li>
+                <!--BUTTON DROPDOWN-->
+                <!--          <li class="nav-item dropdown">-->
+                <!--            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"-->
+                <!--              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gallery-->
+                <!--            </a>-->
+                <!--            <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                <!--              <a class="dropdown-item" href="year17.html">2017</a>-->
+                <!--              <a class="dropdown-item" href="year18.html">2018</a>-->
+                <!--              <a class="dropdown-item" href="year19.html">2019</a>-->
+                <!--              <a class="dropdown-item" href="year20.html">2020</a>-->
+
+
+                <!--              <div class="dropdown-divider"></div>-->
+                <!--              <a class="dropdown-item" href="seeall.html">See all</a>-->
+                <!--            </div>-->
+                <!--          </li>-->
+                <!--          <li class="nav-item">-->
+                <!--            <a class="nav-link text-white" href="studio.html">Backgrounds</a>-->
+                <!--          </li>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown2" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/book">Book</a>
+                        <a class="dropdown-item" href="{{url_for('auth.mybookings',user_id=current_user.id)}}">My
+                            Bookings</a>
+                        <a class="dropdown-item"
+                           href="{{url_for('auth.mystudios',name_surname=current_user.name_surname)}}">My Studios</a>
+                        <a class="dropdown-item" href="/account">Account</a>
+                        <a class="dropdown-item" href="/logout">Log out</a>
+                    </div>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </nav>
+
+    <!--STUDIO DESCRIPTION-->
+
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <img src="..\static\studio-setup2.jpg" class="img-fluid mb-4 border rounded-left rounded-lg border-0"
+                 alt="studio" style="height: 275px; width: 325px;">
+        </div>
+        <div class="col-6 col-md-8 bg-white p-5 mb-5 d-flex align-items-center border border-dark rounded-right rounded-lg">
+
+            <section>
+                <section>
+
+                    {%if studio.active==1%}
+                    <h2>{{studio.studio_name}}</h2>
+                    <h4 class="border border-dark p-3">Descriptions
+                        <p style="font-size:20px">{{studio.description}}</p>
+                    <p style="font-size:20px">Size:{{studio.surface}}</p></h4>
+                    <h4 class="border border-dark p-3">Address:
+                        <p style="font-size:20px">{{studio.country}}, <span>{{studio.city}}</span></p>
+                        <p style="font-size:20px"> Street: {{studio.street}}</p></h4>
+                    <h4 class="border border-dark p-3">Price: <span style="font-size:20px">&euro;{{studio.price}} for 1 hour</span>
+                    </h4>
+                    <div class="row">
+                        {%if filenames%}
+                        {%for filename in filenames %}
+
+                        <div class="col"><img class="img"
+                                              src="{{request.url_root}}static/studios/{{ filename.pictures }}"
+                                              style="width:300px"></div>
+
+                        {%endfor%}
+                        {%endif%}
+                    </div>
+                    {%endif%}
+
+                </section>
+
+
+            </section>
+        </div>
+        <div class="col-12 col-md-4">
+        </div>
+        <div class="col-6 col-md-8 bg-white p-5 mb-5 d-flex align-items-center border border-dark rounded-right rounded-lg">
+            <section>
+                <hr class="my-4">
+                {%with date_messages=get_flashed_messages(with_categories=true)%}
+                {% if date_messages %}
+                {% for category,message in date_messages %}
+                {% if category == 'error'%}
+                <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-success alter-dismissable fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+                {% endwith %}
+                <form action="/order/{{studio.id}}" method="POST">
+                    <div class="align-items-end flex-column">
+                        <div class="md-form md-outline input-with-post-icon datepicker ">
+                            <label for="default-picker"><h5>Pick a date</h5></label>
+                            <input type="date" min="" id="example" class="form-control" name="date">
+                        </div>
+                        <div class="md-form md-outline" min="9:00 AM" max="5:00 PM ">
+                            <label for="default-picker"><h5>Check-in time </h5></label>
+                            <input type="time" id="default-picker" class="form-control" name="time">
+                        </div>
+                        <div class="md-form md-outline" min="9:00 AM" max="5:00 PM ">
+                            <label for="default-picker"><h5>Check-out time </h5></label>
+                            <input type="time" id="default-picker" class="form-control" name="check_out_time">
+                        </div>
+
+                        <br>
+                        <form method="POST">
+                            <button type="submit" class="btn btn-lg btn-outline-dark" value="RENT">RENT</button>
+                        </form>
+
+                    </div>
+                </form>
+
+
+            </section>
+            <section class="px-5"></section>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+</div>
+<!--This is the Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script>
+
+      $('.datepicker').datepicker({
+
+    startDate: new Date()
+
+});
+
+
+
+</script>
+</body>
+
+</html>
