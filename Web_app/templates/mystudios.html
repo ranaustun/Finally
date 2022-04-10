@@ -113,21 +113,19 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-2">
-                                    <h5 class="card-title">{{studio.studio_name}}</h5></div>
-                                <div class="col-2"><span class="card-text">{{studio.description}}</span></div>
-                                <div class="col-2"><span class="card-text">{{studio.country}}</span>,
-                                    <span class="card-text">{{studio.city}}</span>
-                                </div>
-                                <div class="col-2"><span class="card-text">{{studio.street}}</span></div>
-                                <div class="col-2"><span class="card-text">&euro;{{studio.price}} </span></div>
-                                {%if filenames%}
-                                {%for filename in filenames %}
-                                <div class="col-2"><img class="img"
-                                                        src="{{request.url_root}}static/studios/{{ filename.pictures }}"
-                                                        style="width:200px"></div>
-                                {%endfor%}
-                                {%endif%}
+                                <div class="col-md-2">
+                                    <h5>{{studio.studio_name}}</h5></div>
+                                <div class="col-md-2"><span >{{studio.description}}</span></div>
+                                <div class=" col-md-2"><span >{{studio.country}}</span>, <span >{{studio.city}}</span></div>
+                                <div class="col-md-2"><span >{{studio.street}}</span></div>
+                                <div class="col-md-2"><span >Price: &euro;{{studio.price}}/h </span></div>
+<!--                                {%if filenames%}-->
+<!--                                {%for filename in filenames %}-->
+<!--                                <div class="col-2"><img class="img"-->
+<!--                                                        src="{{request.url_root}}static/studios/{{ filename.pictures }}"-->
+<!--                                                        style="width:200px"></div>-->
+<!--                                {%endfor%}-->
+<!--                                {%endif%}-->
 
                             </div>
 
@@ -141,7 +139,7 @@
                                         <a class="btn btn-outline-dark"
                                            href="{{url_for('auth.studio_edit',studio_name_e=studio.studio_name)}}"
                                            role="button">Edit Studio details</a>
-                                        <a class="btn btn-outline-dark"
+                                        <a class="btn btn-outline-dark pr-sm-2"
                                            href="{{url_for('auth.delete_studio',studio_id=studio.id)}}" role="button">Delete
                                             Studio</a>
                                         <!--                                                      studio deleting-->
