@@ -76,7 +76,7 @@ def logout():
 @auth.route('/info')
 @login_required
 def info():
-    return render_template("info.html")
+    return render_template("Info.html")
 
 
 # filtering
