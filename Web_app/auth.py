@@ -148,6 +148,8 @@ def order(product_id):
                                         studio_name=studio.studio_name))
         if clicked_date == '':
             flash("Choose a date", category='error')
+        elif datetime.strptime(clicked_date, "%Y-%m-%d") < datetime.now():
+            flash("Choose a date in the future", category="error")
         elif time == '':
             flash("Choose a check-in time", category='error')
         elif chosen_check_out_time == '':
@@ -351,9 +353,7 @@ def cancel():
 @auth.route('/mystudios/<name_surname>')
 @login_required
 def mystudios(name_surname):
-    studios = Studio.query.filter(Studio.studio_owner == name_surname).all()
-    print(name_surname)
-    print(session)
+    studios = Studio.query.filter(Studio.studio_owner == name_surname)
     return render_template('mystudios.html', studios=studios)
 
 
