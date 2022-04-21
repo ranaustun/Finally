@@ -100,8 +100,8 @@
 
                 </h3>
 
-                <div class="card">
-                    <div class="card-body">
+                <div class="card row">
+                    <div class="card-body ">
 
                         <h5 class="card-title"> Contact Information </h5>
 
@@ -114,9 +114,9 @@
                         <p class="display-5 ">
                             <i class="fas fa-location-arrow"></i> Romania, Bucharest
 
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.6779610398653!2d26.120530791589427!3d44.41925365322991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1fee22cbe41b1%3A0x8aa786af8794fdb8!2sStrada%20Foi%C8%99orului%2011%2C%20Bucure%C8%99ti%20031179!5e0!3m2!1str!2sro!4v1646301471978!5m2!1str!2sro"
-                                    width="400" height="350" style="border:0;" allowfullscreen=""
-                                    loading="lazy"></iframe>
+                        <iframe class="col-md-10" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.6779610398653!2d26.120530791589427!3d44.41925365322991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1fee22cbe41b1%3A0x8aa786af8794fdb8!2sStrada%20Foi%C8%99orului%2011%2C%20Bucure%C8%99ti%20031179!5e0!3m2!1str!2sro!4v1646301471978!5m2!1str!2sro"
+                               width="400" height="300" style="border:0;" allowfullscreen=""
+                                                         loading="lazy"></iframe>
                         </p>
 
 
@@ -127,17 +127,19 @@
 
             </div>
 
-            <div class="col-2"><img src="{{url_for('static', filename='back.jpg')}}" class="img-thumbnail img-fluid"
+            <div class="col-md-2">
+                <img src="{{url_for('static', filename='back.jpg')}}" class="img-thumbnail img-fluid"
                                     align="middle"/>
                 <img src="{{url_for('static', filename='back3.jpg')}}" class="img-thumbnail img-fluid" align="middle"/>
                 <img src="{{url_for('static', filename='back4.jpg')}}" class="img-thumbnail img-fluid" align="middle"/>
             </div>
-            <div class="col-2"><img src="{{url_for('static', filename='back5.jpg')}}" class="img-thumbnail"
+            <div class="col-md-2"><img src="{{url_for('static', filename='back5.jpg')}}" class="img-thumbnail"
                                     align="middle"/>
                 <img src="{{url_for('static', filename='back6.jpg')}}" class="img-thumbnail" align="middle"/>
                 <img src="{{url_for('static', filename='back7.jpg')}}" class="img-thumbnail" align="middle"/>
                 <img src="{{url_for('static', filename='back8.jpg')}}" class="img-thumbnail" align="middle"/></div>
-            <div class="col-2"><img src="{{url_for('static', filename='back2.jpg')}}" class="img-thumbnail"
+            <div class="col-md-2">
+                <img src="{{url_for('static', filename='back2.jpg')}}" class="img-thumbnail"
                                     align="middle"/>
                 <img src="{{url_for('static', filename='back9.jpg')}}" class="img-thumbnail" align="middle"/>
                 <img src="{{url_for('static', filename='back10.jpg')}}" class="img-thumbnail" align="middle"/></div>
