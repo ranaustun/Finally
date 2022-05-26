@@ -280,14 +280,6 @@ def success():
     return render_template('success.html')
 
 
-# @auth.route('/download_bookings/<user_name>', methods=['POST', 'GET'])
-# def download_bookings(user_name):
-#
-#     studio=db.engine.execute('Select s.studio_name from studio as s left join reservations as r on s.id=r.studio_id where user_id='+ user_id)
-#     column_names=['']
-#     return
-
-
 @auth.route('/mybookings/<user_id>')
 def mybookings(user_id):
     reservations_table = db.engine.execute(
@@ -315,7 +307,6 @@ def delete_reservation(id):
                  'about your reservation, please write back.'
                  '\nThanks again for being our customer.'
                  'The crew at Superior Studio Renting https://superiorstudiorent.com'
-            # here put the link for the application when you take your domain
             ,
             recipients=[current_user.email])
         mail.send(msg)
@@ -420,8 +411,6 @@ def new_studio():
                         filename = secure_filename(image.filename)
                         image_names.append(filename)
                         image.save(os.path.join(create_app().root_path, 'static/studios', filename))
-                        # picture_path=os.path.join(create_app().root_path,'static/studios',image_name)
-                        # picture.save(picture_path)
                         new_picture = Pictures(user_id=current_user.id, studio_name=studio_name,
                                                studio_id=new_studio_add.id, pictures=filename)
                         db.session.add(new_picture)
@@ -453,8 +442,7 @@ def new_studio():
                     filename = secure_filename(image.filename)
                     image_names.append(filename)
                     image.save(os.path.join(create_app().root_path, 'static/studios', filename))
-                    # picture_path=os.path.join(create_app().root_path,'static/studios',image_name)
-                    # picture.save(picture_path)
+
                     new_picture = Pictures(user_id=current_user.id, studio_name=studio_name,
                                            studio_id=new_studio_add.id, pictures=filename)
                     db.session.add(new_picture)
@@ -485,12 +473,6 @@ def studio_edit(studio_name_e):
         pictures = request.files.getlist('image')
 
         studio = Studio.query.filter_by(studio_name=studio_name).first()
-
-        # if studio:
-        #     flash("This name of studio is already exist!", category='error')
-        # el
-        # if studio_name == '':
-        #     flash('Give a  name', category='error')
         if surface == '' or surface is None:
             flash('Choose a surface for your studio', category='error')
         elif description == '':
@@ -515,9 +497,7 @@ def studio_edit(studio_name_e):
             studio.street = address
             studio.surface = surface
             studio.price = price
-            # studio.user_id = current_user.id
-
-            current_user.studio_id = studio_name  # how to get the studio of the user directly from the studio table but not from the user table
+            current_user.studio_id = studio_name
 
             image_names = []
             for image in pictures:
@@ -525,8 +505,6 @@ def studio_edit(studio_name_e):
                     filename = secure_filename(image.filename)
                     image_names.append(filename)
                     image.save(os.path.join(create_app().root_path, 'static/studios', filename))
-                    # picture_path=os.path.join(create_app().root_path,'static/studios',image_name)
-                    # picture.save(picture_path)
                     new_picture = Pictures(user_id=current_user.id, studio_name=studio_name,
                                            studio_id=studio.id, pictures=filename)
                     db.session.add(new_picture)
