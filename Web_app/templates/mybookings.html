@@ -100,16 +100,7 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>{%if filenames%}
-                                                {%for filename in filenames %}
 
-                                                <div class="col"><img class="img"
-                                                                      src="{{request.url_root}}static/studios/{{ filename.pictures }}"
-                                                                      style="width:100px"></div>
-
-                                                {%endfor%}
-                                                {%endif%}
-                                            </td>
                                             <td><h5 class="card-title">{{reservation.studio_name}}</h5></td>
                                             <td><h5 class="card-title">{{reservation.studio_busy_date}}</h5></td>
                                             <td><h5 class="card-title">{{reservation.studio_busy_time}}</h5></td>

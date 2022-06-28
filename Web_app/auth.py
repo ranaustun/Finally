@@ -524,14 +524,12 @@ def studio_edit(studio_name_e):
 @login_required
 def delete_studio(studio_id):
     studio_to_delete = Studio.query.filter_by(id=studio_id).first()
-    # studio_delete_from_userstudio = Userstudio.query.filter_by(studio_id=studio_id).first()
     reservation_delete = Reservations.query.filter_by(studio_id=studio_id).first()
     if studio_to_delete:
         if reservation_delete:
             if reservation_delete.active == 1:
                 flash("You can not delete your studio because you have already got a reservation on it",
                       category='error')
-            #     return render_template("mystudios.html") # add here mystudios with a flash that user cannot delete studio bc of the reservation
             else:
                 studio_to_delete.active = 0
                 Pictures.query.filter_by(studio_id=studio_id).delete()
@@ -581,8 +579,6 @@ def save_changes():
 
     return render_template("account.html")
 
-
-# change_password.html -> changing password # source codemy.com tutorial
 @auth.route('/change_password/<string:name_surname>', methods=['GET', 'POST'])
 @login_required
 def change_password(name_surname):
