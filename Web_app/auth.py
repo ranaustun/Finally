@@ -86,7 +86,7 @@ def info():
 def book():
     studio_f = Studio.query.all()
     country = request.form.get('country')
-    if country == "-1":
+    if country == "-1":  #value of the country is -1
         country = ""
     city = request.form.get('selectcity')
     if city == "-1":
@@ -156,6 +156,8 @@ def order(product_id):
             flash("Choose a check-out time", category='error')
         elif check_out_time == time:
             flash("Check out and check in time cannot be the same", category='error')
+        elif check_out_time < time:
+            flash("Check-out cannot be before the check-in",category='error')
         else:
 
             converted_check_in_time = convert24(time)
@@ -165,6 +167,7 @@ def order(product_id):
 
             check_in_time_hour = check_in_time_split[0]
             check_out_time_hour = check_out_time_split[0]
+
             price = int(check_out_time_hour) - int(check_in_time_hour)
 
             session = stripe.checkout.Session.create(
