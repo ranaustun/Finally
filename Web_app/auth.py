@@ -535,14 +535,14 @@ def delete_studio(studio_id):
                 Pictures.query.filter_by(studio_id=studio_id).delete()
 
                 db.session.commit()
-                print("Studio is deleted")
+                #print("Studio is deleted")
 
         else:
             studio_to_delete.active = 0
             picture_to_delete = Pictures.query.filter_by(studio_id=studio_id).first()
             db.session.delete(picture_to_delete)
             db.session.commit()
-            print("Studio is deleted")
+           # print("Studio is deleted")
             return render_template("mystudios.html", autoflush=False)
     else:
         print("Studio is not deleted")
