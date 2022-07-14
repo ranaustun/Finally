@@ -263,7 +263,7 @@ def stripe_webhook():
                      'We are waiting for you on ' + metadata_date + ',at ' + metadata_time + '. '
                                                                                              '\nThanks again for being our customer.The crew at Superior '
                                                                                              '\nStudio Rent '
-                                                                                             'https://superiorstudiorent.com ',
+                                                                                             'https://studiorenting.azurewebsites.net',
                 recipients=[metadata_user_email])
             mail.send(msg_client)
             msg_owner = Message(
@@ -272,7 +272,7 @@ def stripe_webhook():
                      '\nClient email: ' + metadata_user_email +
                      '.\nThe studio: ' + metadata_studio_name +
                      '\nOn: ' + metadata_date + '\nBetween: ' + metadata_time + ' and ' + metadata_check_out_time +
-                     '\nThe crew at Superior Studio Renting https://superiorstudiorent.com',
+                     '\nThe crew at Superior Studio Renting https://studiorenting.azurewebsites.net',
                 recipients=[studio_owner_email])
             mail.send(msg_owner)
     return {}
@@ -309,7 +309,7 @@ def delete_reservation(id):
                  'cancellation is in error, or you have any other questions '
                  'about your reservation, please write back.'
                  '\nThanks again for being our customer.'
-                 'The crew at Superior Studio Renting https://superiorstudiorent.com'
+                 'The crew at Superior Studio Renting https://studiorenting.azurewebsites.net'
             ,
             recipients=[current_user.email])
         mail.send(msg)
@@ -552,7 +552,7 @@ def delete_studio(studio_id):
     return render_template("mystudios.html")
 
 
-# Account.html -> changing data # source codemy.com tutorial
+# Account.html -> changing data
 @auth.route('/account', methods=['GET', 'POST'])
 @login_required
 def save_changes():
@@ -575,7 +575,7 @@ def save_changes():
 
         db.session.commit()
         user = current_user
-        print(email, name_surname, address, country, postalcode, user.name_surname)
+        #print(email, name_surname, address, country, postalcode, user.name_surname)
 
         return render_template(account, email=email, name_surname=name_surname, address=address, country=country,
                                postalcode=postalcode)
